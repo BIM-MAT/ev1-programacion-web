@@ -102,7 +102,7 @@ app.post("/api/reminders", authMiddleware, (req, res) => {
   if (typeof important !== "boolean") {
     return res
       .status(400)
-      .json({ error: "El campo important debe ser booleano" });
+      .json({ error: "El campo importante debe ser booleano" });
   }
 
   const newReminder = {
@@ -141,7 +141,7 @@ app.patch("/api/reminders/:id", authMiddleware, (req, res) => {
     if (typeof important !== "boolean") {
       return res
         .status(400)
-        .json({ error: "El campo important debe ser booleano" });
+        .json({ error: "El campo importante debe ser booleano" });
     }
     reminder.important = important;
   }
