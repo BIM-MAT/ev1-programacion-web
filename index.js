@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(express.static("public"));
 
-// ===== Usuarios en memoria =====
+// Usuarios guardados
 const users = [
   {
     username: "admin",
@@ -17,11 +17,11 @@ const users = [
     token: null,
   },
 ];
-
-// ===== Recordatorios en memoria =====
+// Recordatorios en memoria
 const reminders = [];
 
-// ===== Utilidades =====
+//Requisitos
+//Funciona
 function generateToken() {
   return crypto.randomBytes(48).toString("hex");
 }
@@ -46,7 +46,7 @@ function authMiddleware(req, res, next) {
   next();
 }
 
-// ===== Rutas =====
+//Rutas
 //testeo de clases
 app.get("/api", (req, res) => {
   res.send("<h1>Hola Mundo!</h1>");
@@ -79,6 +79,7 @@ app.post("/api/auth/login", async (req, res) => {
   res.json({ username: user.username, name: user.name, token: user.token });
 });
 //listar
+//Funcionando
 app.get("/api/reminders", authMiddleware, (req, res) => {
   const sorted = reminders.sort((a, b) => {
     if (a.important === b.important) {
@@ -89,6 +90,7 @@ app.get("/api/reminders", authMiddleware, (req, res) => {
   res.status(200).json(sorted);
 });
 //Crear
+//Funcionando
 app.post("/api/reminders", authMiddleware, (req, res) => {
   const { content, important = false } = req.body;
 
@@ -113,6 +115,7 @@ app.post("/api/reminders", authMiddleware, (req, res) => {
   res.status(201).json(newReminder);
 });
 //Actualizar
+//Funcionando
 app.patch("/api/reminders/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const { content, important } = req.body;
@@ -145,7 +148,8 @@ app.patch("/api/reminders/:id", authMiddleware, (req, res) => {
 
   res.json(reminder);
 });
-
+//borrar
+//Funcionando
 app.delete("/api/reminders/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   const index = reminders.findIndex((r) => r.id === id);
@@ -156,7 +160,7 @@ app.delete("/api/reminders/:id", authMiddleware, (req, res) => {
   res.status(204).end();
 });
 
-// ===== Inicio del servidor =====
+//Hasta aquí
 app.listen(PORT, (error) => {
   if (error) {
     console.error(`No se puede ocupar el puerto ${PORT} :(`);
