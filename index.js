@@ -146,7 +146,7 @@ app.patch("/api/reminders/:id", authMiddleware, (req, res) => {
     reminder.important = important;
   }
 
-  res.json(reminder);
+  res.status(200).json(reminder);
 });
 //borrar
 //Funcionando
